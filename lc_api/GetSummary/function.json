@@ -1,0 +1,26 @@
+{
+  "scriptFile": "get_summary.py",
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get"]
+    },
+    {
+      "direction": "in",
+      "type": "table",
+      "name": "dataJson",
+      "tableName": "Summary",
+      "partitionKey": "{customerID}_{deviceID}_{timespan}",
+      "filter": "RowKey gt '{startTimestamp}' and RowKey le '{endTimestamp}'",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ]
+}
